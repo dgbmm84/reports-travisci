@@ -5,14 +5,17 @@ rvm:
 
 jobs:
   include:
+    # Declare 2 stages:
+    # Stage Validations with 2 jobs (Sniffer, PHPUnit)
+    # Stage Deploy with only 1 job
     - stage: Validations
       name: Sniffer
+      language: php
+      rvm:
+        - 7.4
       script:
         - sudo apt-get -y install php-codesniffer
-        #- pear channel-update pear.php.net
-        #- pear install PHP_CodeSniffer
-        # - phpcs --extensions=php src/Framework/Controller # Path for checking entire project
-        - pwd && ls -lrt
+        - cd app/reports
         - phpcs --extensions=php --standard=PSR2 src/Framework/Controller/ClassPhpCS.php
     -
       name: PHPUnit
