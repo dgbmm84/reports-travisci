@@ -13,25 +13,18 @@ jobs:
       language: php
       rvm:
         - 7.4
-      script:
+      before_script:
         - sudo apt-get -y install php-codesniffer
         - cd app/reports
-        - phpcs --extensions=php --standard=PSR2 src/Framework/Controller/ClassPhpCS.php
+      script: phpcs -v --extensions=php --standard=PSR2 src/Framework/Controller/ClassPhpCS.php
     -
       name: PHPUnit
       before_script:
-       # - apt-get install zip unzip
-       # - php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-       # - php composer-setup.php
-       # - php -r "unlink('composer-setup.php');"
         - cd app/reports && composer install
-      script:
-        #- apt install -y wget
-        - pwd && ls -lrt
         - wget -O phpunit https://phar.phpunit.de/phpunit-9.phar
         - chmod +x phpunit
         - ./phpunit --version
-        - ./phpunit --bootstrap vendor/autoload.php tests
+      script: ./phpunit --bootstrap vendor/autoload.php tests
 
     #- stage: deploy
     #  before_script:
