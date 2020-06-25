@@ -1,15 +1,6 @@
 # Travis installs a "Xenial" dist as default with several packages configured as composer etc.
 dist: focal
 language: php
-rvm:
-  - "7.4"
-before_install:
-  # Install manually php 7.4 , travis does not support it yet
-  - sudo apt-get update
-  - sudo apt -y install software-properties-common
-  - sudo add-apt-repository ppa:ondrej/php -y
-  - sudo apt-get update
-  - sudo apt -y install php7.4
 
 jobs:
   include:
@@ -18,12 +9,26 @@ jobs:
     # Stage Deploy with only 1 job
     - stage: Validations
       name: Sniffer
+      before_install:
+        # Install manually php 7.4 , travis does not support it yet
+        - sudo apt-get update
+        - sudo apt -y install software-properties-common
+        - sudo add-apt-repository ppa:ondrej/php -y
+        - sudo apt-get update
+        - sudo apt -y install php7.4
       before_script:
         - cd app/reports
         - pear install PHP_CodeSniffer
       script: phpcs -v --extensions=php --standard=PSR2 src/Framework/Controller/ClassPhpCS.php
     -
       name: PHPUnit
+      before_install:
+        # Install manually php 7.4 , travis does not support it yet
+        - sudo apt-get update
+        - sudo apt -y install software-properties-common
+        - sudo add-apt-repository ppa:ondrej/php -y
+        - sudo apt-get update
+        - sudo apt -y install php7.4
       before_script:
         - cd app/reports && composer install
         - wget -O phpunit https://phar.phpunit.de/phpunit-9.phar
