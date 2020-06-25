@@ -3,6 +3,8 @@ dist: bionic
 language: php
 php:
   - 7.4.1
+addons:
+  ssh_known_hosts: github.com
 
 jobs:
   include:
