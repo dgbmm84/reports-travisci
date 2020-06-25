@@ -9,25 +9,26 @@ jobs:
     # Declare 2 stages:
     # Stage Validations with 2 jobs (Sniffer, PHPUnit)
     # Stage Deploy with only 1 job
-    - stage: Validations
-      name: Sniffer
-      before_script:
-        - cd app/reports
-        - sudo apt-get install -y php-codesniffer
-      script: phpcs -v --extensions=php --standard=PSR2 src/Framework/Controller/ClassPhpCS.php
-    -
-      name: PHPUnit
-      before_script:
-        - cd app/reports && composer install
-        - wget -O phpunit https://phar.phpunit.de/phpunit-9.phar
-        - chmod +x phpunit
-        - ./phpunit --version
-      script: ./phpunit --bootstrap vendor/autoload.php tests
-
-    #- stage: deploy
+    #- stage: Validations
+    #  name: Sniffer
     #  before_script:
-    #    - sudo apt install -y python3-pip && pip3 --version
-    #    - pip3 install Fabric3==1.13.1.post1 && fab --version
-    #    - echo "------Deploying MASTER------"
-    #  script: fab production deploy:env_file="$ENV_FILE_PROD",mysql_env_file="$ENV_MYSQL_FILE"
+    #    - cd app/reports
+    #    - sudo apt-get install -y php-codesniffer
+    #  script: phpcs -v --extensions=php --standard=PSR2 src/Framework/Controller/ClassPhpCS.php
+    #-
+    #  name: PHPUnit
+    #  before_script:
+    #    - cd app/reports && composer install
+    #    - wget -O phpunit https://phar.phpunit.de/phpunit-9.phar
+    #    - chmod +x phpunit
+    #    - ./phpunit --version
+    #  script: ./phpunit --bootstrap vendor/autoload.php tests
+
+    - stage: deploy PROD
+      before_script:
+        - sudo apt install -y python3-pip && pip3 --version
+        - pip3 install Fabric3==1.13.1.post1 && fab --version
+        - echo "------Deploying MASTER------"
+      script: fab production production:env_file="$ENV_FILE_PROD",mysql_env_file="$ENV_MYSQL_FILE"
+      if: branch = master
 

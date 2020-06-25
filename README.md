@@ -9,7 +9,7 @@ Travis configuration
     - Travis funciona con repositorios ṕublicos compartidos. Por ello hay un repo en GitHub con este proyecto.
         - Si se le asocia directamente un fichero .travis.yml en vez de .github/workflows desplegará travis
     - Configuración del repositorio travis:
-        -- -- TODO -- 
+        -- env vars dentro de /reports-travisci/settings 
 
 Host de despliegue 
 
@@ -31,7 +31,7 @@ Despliegue
     - Git push origin master 
     - Arranca los servicios de docker en la máquina destino
         - docker exec -it app_prod bash
-        - Las variables de la aplicación están declaradas en el apartado --- TODO --- y se injectan automáticatimante.  
+        - Las variables de la aplicación están declaradas en el apartado /reports-travisci/settings se actualizan las vars de los entornos y la SSH_KEY  y se injectan automáticatimante.  
             - Fabric usa para task arguments un tratamiento especial en los caracteres que hay que aplicar a las variables de entorno 
                 - En este caso para ENV_FILE_PROD (https://docs.fabfile.org/en/1.8/usage/fab.html#per-task-arguments)
 
