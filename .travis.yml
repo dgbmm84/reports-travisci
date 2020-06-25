@@ -25,9 +25,9 @@ jobs:
         #- phpenv rehash
 
         - cd app/reports
-        - pear install PHP_CodeSniffer
-        - pear channel-update pear.php.net
-      script: which phpcs | -v --extensions=php --standard=PSR2 src/Framework/Controller/ClassPhpCS.php
+        - sudo apt-get install -y php-codesniffer # pear install PHP_CodeSniffer
+        # - pear channel-update pear.php.net
+      script: phpcs -v --extensions=php --standard=PSR2 src/Framework/Controller/ClassPhpCS.php
     #-
     #  name: PHPUnit
     #  before_script:
