@@ -11,11 +11,17 @@ jobs:
       name: Sniffer
       before_script:
         # Install manually php 7.4 , travis does not support it yet
-        - sudo apt-get update
-        - sudo apt -y install software-properties-common
-        - sudo add-apt-repository ppa:ondrej/php -y
-        - sudo apt-get update
-        - sudo apt -y install php7.4
+        #- sudo apt-get update
+        #- sudo apt -y install software-properties-common
+        #- sudo add-apt-repository ppa:ondrej/php -y
+        #- sudo apt-get update
+        #- sudo apt -y install php7.4
+        - git clone git://github.com/phpenv/phpenv.git ~/.phpenv
+        - echo 'export PATH="$HOME/.phpenv/bin:$PATH"' >> ~/.bash_profile
+        - echo 'eval "$(phpenv init -)"' >> ~/.bash_profile
+        - exec $SHELL -l
+        - git clone https://github.com/php-build/php-build $(phpenv root)/plugins/php-build
+        - phpenv install 7.4
         - phpenv rehash
         - cd app/reports
         - pear install PHP_CodeSniffer
@@ -25,11 +31,17 @@ jobs:
       name: PHPUnit
       before_script:
         # Install manually php 7.4 , travis does not support it yet
-        - sudo apt-get update
-        - sudo apt -y install software-properties-common
-        - sudo add-apt-repository ppa:ondrej/php -y
-        - sudo apt-get update
-        - sudo apt -y install php7.4
+        #- sudo apt-get update
+        #- sudo apt -y install software-properties-common
+        #- sudo add-apt-repository ppa:ondrej/php -y
+        #- sudo apt-get update
+        #- sudo apt -y install php7.4
+        - git clone git://github.com/phpenv/phpenv.git ~/.phpenv
+        - echo 'export PATH="$HOME/.phpenv/bin:$PATH"' >> ~/.bash_profile
+        - echo 'eval "$(phpenv init -)"' >> ~/.bash_profile
+        - exec $SHELL -l
+        - git clone https://github.com/php-build/php-build $(phpenv root)/plugins/php-build
+        - phpenv install 7.4
         - phpenv rehash
         - cd app/reports && composer install
         - wget -O phpunit https://phar.phpunit.de/phpunit-9.phar
