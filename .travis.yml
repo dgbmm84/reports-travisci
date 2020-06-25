@@ -1,8 +1,8 @@
 # Travis installs a "Xenial" dist as default with several packages configured as composer etc.
-dist: trusty
+dist: focal
 language: php
 rvm:
-  - 7.4
+  - "7.4"
 
 jobs:
   include:
@@ -13,7 +13,7 @@ jobs:
       name: Sniffer
       language: php
       rvm:
-        - 7.4
+        - "7.4"
       before_script:
         - sudo apt-get -y install php-codesniffer
         - cd app/reports
