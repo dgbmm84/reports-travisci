@@ -5,7 +5,9 @@ rvm:
 
 jobs:
   include:
-    - script:
+    - language: php
+      rvm: 7.4
+      script:
       - pear install PHP_CodeSniffer
       # - phpcs --extensions=php src/Framework/Controller # Path for checking entire project
       - pwd && ls -lrt
