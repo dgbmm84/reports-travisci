@@ -1,3 +1,4 @@
+# Travis installs a "Xenial" dist as default with several packages configured as composer etc.
 language: php
 rvm:
   - 7.4
@@ -7,7 +8,7 @@ jobs:
     - stage: Validations
       name: Sniffer
       script:
-        - apt-get install php-codesniffer
+        - apt-get -y install php-codesniffer
         #- pear channel-update pear.php.net
         #- pear install PHP_CodeSniffer
         # - phpcs --extensions=php src/Framework/Controller # Path for checking entire project
@@ -16,13 +17,13 @@ jobs:
     -
       name: PHPUnit
       before_script:
-        - apt-get install zip unzip
-        - php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-        - php composer-setup.php
-        - php -r "unlink('composer-setup.php');"
-        - cd app/reports && php ../../composer.phar install
+       # - apt-get install zip unzip
+       # - php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+       # - php composer-setup.php
+       # - php -r "unlink('composer-setup.php');"
+        - cd app/reports && composer install
       script:
-        - apt install -y wget
+        #- apt install -y wget
         - pwd && ls -lrt
         - wget -O phpunit https://phar.phpunit.de/phpunit-9.phar
         - chmod +x phpunit
