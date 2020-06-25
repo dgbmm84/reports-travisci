@@ -8,7 +8,7 @@ jobs:
     - stage: Validations
       name: Sniffer
       script:
-        - apt-get -y install php-codesniffer
+        - sudo apt-get -y install php-codesniffer
         #- pear channel-update pear.php.net
         #- pear install PHP_CodeSniffer
         # - phpcs --extensions=php src/Framework/Controller # Path for checking entire project
