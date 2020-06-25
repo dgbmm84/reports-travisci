@@ -19,6 +19,9 @@ jobs:
       script: phpcs -v --extensions=php --standard=PSR2 src/Framework/Controller/ClassPhpCS.php
     -
       name: PHPUnit
+      language: php
+      rvm:
+        - 7.4
       before_script:
         - cd app/reports && composer install
         - wget -O phpunit https://phar.phpunit.de/phpunit-9.phar
