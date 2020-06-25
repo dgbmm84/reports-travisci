@@ -3,7 +3,7 @@ dist: focal
 language: php
 rvm:
   - "7.4"
-script:
+before_install:
   # Install manually php 7.4 , travis does not support it yet
   - sudo apt-get update
   - sudo apt -y install software-properties-common
