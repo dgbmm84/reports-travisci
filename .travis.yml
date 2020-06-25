@@ -25,6 +25,8 @@ jobs:
     #  script: ./phpunit --bootstrap vendor/autoload.php tests
 
     - stage: deploy PROD
+      env:
+        SSH_AUTH_SOCK=/tmp/ssh_agent.sock
       before_script:
         - sudo apt-get update
         - sudo apt-get install -y python3-pip && pip3 --version
