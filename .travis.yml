@@ -1,5 +1,5 @@
 # Travis installs a "Xenial" dist as default with several packages configured as composer etc.
-dist: focal
+dist: xenial
 language: php
 
 jobs:
