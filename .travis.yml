@@ -1,5 +1,5 @@
 # Travis installs a "Xenial" dist as default with several packages configured as composer etc.
-dist: focal
+dist: trusty
 language: php
 rvm:
   - "7.4"
@@ -11,18 +11,12 @@ jobs:
     # Stage Deploy with only 1 job
     - stage: Validations
       name: Sniffer
-      language: php
-      rvm:
-        - "7.4"
       before_script:
         - sudo apt-get -y install php-codesniffer
         - cd app/reports
       script: phpcs -v --extensions=php --standard=PSR2 src/Framework/Controller/ClassPhpCS.php
     -
       name: PHPUnit
-      language: php
-      rvm:
-        - 7.4
       before_script:
         - cd app/reports && composer install
         - wget -O phpunit https://phar.phpunit.de/phpunit-9.phar
