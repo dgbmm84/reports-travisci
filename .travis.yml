@@ -1,0 +1,12 @@
+dist: focal
+language: php
+rvm:
+  - 7.4
+
+jobs:
+  include:
+    - script:
+      - pear install PHP_CodeSniffer
+      # - phpcs --extensions=php src/Framework/Controller # Path for checking entire project
+      - pwd && ls -lrt
+      - phpcs --extensions=php --standard=PSR2 src/Framework/Controller/ClassPhpCS.php
