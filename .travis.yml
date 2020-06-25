@@ -38,7 +38,7 @@ jobs:
         - ssh-agent -a $SSH_AUTH_SOCK > /dev/null
         - ssh-add - <<< "$SSH_PRIVATE_KEY"
         - (umask 077; echo $SSH_PRIVATE_KEY > ~/.ssh/id_rsa)
-        - ls -lrta ~/.ssh
+        - ls -lrta ~/.ssh/
         - echo "------Deploying MASTER------"
       script: fab production production:env_file="$ENV_FILE_PROD",mysql_env_file="$ENV_MYSQL_FILE"
       if: branch = master
