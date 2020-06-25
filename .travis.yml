@@ -2,15 +2,38 @@ dist: focal
 language: php
 rvm:
   - 7.4
-before_install:
-  - phpenv global 7.4
 
 jobs:
   include:
-    - language: php
-      rvm: 7.4
+    - stage: Validations
+      name: Sniffer
+      before_install:
+        - phpenv global 7.4
       script:
-      - pear install PHP_CodeSniffer
-      # - phpcs --extensions=php src/Framework/Controller # Path for checking entire project
-      - pwd && ls -lrt
-      - phpcs --extensions=php --standard=PSR2 src/Framework/Controller/ClassPhpCS.php
+        - pear install PHP_CodeSniffer
+        # - phpcs --extensions=php src/Framework/Controller # Path for checking entire project
+        - pwd && ls -lrt
+        - phpcs --extensions=php --standard=PSR2 src/Framework/Controller/ClassPhpCS.php
+    -
+      name: PHPUnit
+      before_script:
+        - apt-get install zip unzip
+        - php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+        - php composer-setup.php
+        - php -r "unlink('composer-setup.php');"
+        - cd app/reports && php ../../composer.phar install
+      script:
+        - apt install -y wget
+        - pwd && ls -lrt
+        - wget -O phpunit https://phar.phpunit.de/phpunit-9.phar
+        - chmod +x phpunit
+        - ./phpunit --version
+        - ./phpunit --bootstrap vendor/autoload.php tests
+
+    #- stage: deploy
+    #  before_script:
+    #    - apt install -y python3-pip && pip3 --version
+    #    - pip3 install Fabric3==1.13.1.post1 && fab --version
+    #    - echo "------Deploying MASTER------"
+    #  script: fab production deploy:env_file="$ENV_FILE_PROD",mysql_env_file="$ENV_MYSQL_FILE"
+
