@@ -8,7 +8,7 @@ jobs:
     - stage: Validations
       name: Sniffer
       before_install:
-        - phpenv global 7.4
+        - phpenv global 7.4 2>/dev/null
       script:
         - pear install PHP_CodeSniffer
         # - phpcs --extensions=php src/Framework/Controller # Path for checking entire project
