@@ -26,8 +26,15 @@ jobs:
 
     - stage: deploy PROD
       before_script:
-        - sudo apt install -y python3-pip && pip3 --version
+        - sudo apt-get update
+        - sudo apt-get install -y python3-pip && pip3 --version
         - pip3 install Fabric3==1.13.1.post1 && fab --version
+        - mkdir -p ~/.ssh
+        - ssh-keyscan github.com >> ~/.ssh/known_hosts
+        - ssh-agent -a $SSH_AUTH_SOCK > /dev/null
+        - -ssh-add - <<< "$SSH_PRIVATE_KEY"
+        - (umask 077; echo $SSH_PRIVATE_KEY > ~/.ssh/id_rsa)
+        - ls -lrta ~/.ssh
         - echo "------Deploying MASTER------"
       script: fab production production:env_file="$ENV_FILE_PROD",mysql_env_file="$ENV_MYSQL_FILE"
       if: branch = master
