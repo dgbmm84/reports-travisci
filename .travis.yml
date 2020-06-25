@@ -2,6 +2,8 @@ dist: focal
 language: php
 rvm:
   - 7.4
+before_install:
+  - phpenv global 7.4
 
 jobs:
   include:
