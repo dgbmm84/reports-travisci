@@ -17,12 +17,13 @@ jobs:
         #- sudo apt-get update
         #- sudo apt -y install php7.4
         - git clone https://github.com/php-build/php-build $(phpenv root)/plugins/php-build
+        - sudo apt install -y libonig-dev
         - phpenv install 7.4.2
         - phpenv rehash
         - cd app/reports
         - pear install PHP_CodeSniffer
         - pear channel-update pear.php.net
-      script: which phpcs | xargs -v --extensions=php --standard=PSR2 src/Framework/Controller/ClassPhpCS.php
+      script: which phpcs | -v --extensions=php --standard=PSR2 src/Framework/Controller/ClassPhpCS.php
     -
       name: PHPUnit
       before_script:
@@ -33,6 +34,7 @@ jobs:
         #- sudo apt-get update
         #- sudo apt -y install php7.4
         - git clone https://github.com/php-build/php-build $(phpenv root)/plugins/php-build
+        - sudo apt install -y libonig-dev
         - phpenv install 7.4.2
         - phpenv rehash
         - cd app/reports && composer install
