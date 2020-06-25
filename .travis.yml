@@ -1,4 +1,4 @@
-# Travis installs a "Xenial" dist as default with several packages configured as composer etc.
+# Travis installs a "Xenial" dist as default. Travis docs recommends for PHP 7.4 xenial or bionic
 dist: bionic
 language: php
 php:
@@ -12,44 +12,21 @@ jobs:
     - stage: Validations
       name: Sniffer
       before_script:
-        # Install manually php 7.4 , travis does not support it yet
-        #- sudo apt-get update
-        #- sudo apt -y install software-properties-common
-        #- sudo add-apt-repository ppa:ondrej/php -y
-        #- sudo apt-get update
-        #- sudo apt -y install php7.4
-
-        #- git clone https://github.com/php-build/php-build $(phpenv root)/plugins/php-build
-        #- sudo apt install -y libonig-dev  && sudo apt-get install -y libzip-dev
-        #- phpenv install 7.4.2
-        #- phpenv rehash
-
         - cd app/reports
-        - sudo apt-get install -y php-codesniffer # pear install PHP_CodeSniffer
-        # - pear channel-update pear.php.net
+        - sudo apt-get install -y php-codesniffer
       script: phpcs -v --extensions=php --standard=PSR2 src/Framework/Controller/ClassPhpCS.php
-    #-
-    #  name: PHPUnit
-    #  before_script:
-        # Install manually php 7.4 , travis does not support it yet
-        #- sudo apt-get update
-        #- sudo apt -y install software-properties-common
-        #- sudo add-apt-repository ppa:ondrej/php -y
-        #- sudo apt-get update
-        #- sudo apt -y install php7.4
-    #    - git clone https://github.com/php-build/php-build $(phpenv root)/plugins/php-build
-    #    - sudo apt install -y libonig-dev && sudo apt-get install -y libzip-dev
-    #    - phpenv install 7.4.2
-    #    - phpenv rehash
-    #    - cd app/reports && composer install
-    #    - wget -O phpunit https://phar.phpunit.de/phpunit-9.phar
-    #    - chmod +x phpunit
-    #    - ./phpunit --version
-    #  script: ./phpunit --bootstrap vendor/autoload.php tests
+    -
+      name: PHPUnit
+      before_script:
+        - cd app/reports && composer install
+        - wget -O phpunit https://phar.phpunit.de/phpunit-9.phar
+        - chmod +x phpunit
+        - ./phpunit --version
+      script: ./phpunit --bootstrap vendor/autoload.php tests
 
     #- stage: deploy
     #  before_script:
-    #    - apt install -y python3-pip && pip3 --version
+    #    - sudo apt install -y python3-pip && pip3 --version
     #    - pip3 install Fabric3==1.13.1.post1 && fab --version
     #    - echo "------Deploying MASTER------"
     #  script: fab production deploy:env_file="$ENV_FILE_PROD",mysql_env_file="$ENV_MYSQL_FILE"
