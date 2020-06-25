@@ -33,18 +33,18 @@ jobs:
         - sudo apt-get update
         - sudo apt-get install -y python3-pip && pip3 --version
         - pip3 install Fabric3==1.13.1.post1 && fab --version
-        #- mkdir -p ~/.ssh
-        #- ssh-keyscan github.com >> ~/.ssh/known_hosts
-        #- ssh-agent -a $SSH_AUTH_SOCK > /dev/null
-        #- ssh-add - <<< "$SSH_PRIVATE_KEY"
-        #- (umask 077; echo $SSH_PRIVATE_KEY > ~/.ssh/id_rsa)
-        - echo "$SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/id_rsa
-        - chmod 700 ~/.ssh/id_rsa
-        - eval "$(ssh-agent -s)"
-        - ssh-add ~/.ssh/id_rsa
-        - ssh-keyscan -H 'gitlab.com' >> ~/.ssh/known_hosts
+        - mkdir -p ~/.ssh
+        - ssh-keyscan github.com >> ~/.ssh/known_hosts
+        - ssh-agent -a $SSH_AUTH_SOCK > /dev/null
+        - ssh-add - <<< "$SSH_PRIVATE_KEY"
+        - (umask 077; echo $SSH_PRIVATE_KEY > ~/.ssh/id_rsa)
+        #- echo "$SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/id_rsa
+        #- chmod 700 ~/.ssh/id_rsa
+        #- eval "$(ssh-agent -s)"
+        #- ssh-add ~/.ssh/id_rsa
+        #- ssh-keyscan -H 'gitlab.com' >> ~/.ssh/known_hosts
         - ls -lrta ~/.ssh/
         - echo "------Deploying MASTER------"
-      script: fab production production:env_file="$ENV_FILE_PROD",mysql_env_file="$ENV_MYSQL_FILE"
+      script: fab -i /home/travis/.ssh/id_rsa production deploy:env_file="$ENV_FILE_PROD",mysql_env_file="$ENV_MYSQL_FILE"
       if: branch = master
 
