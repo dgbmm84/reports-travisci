@@ -16,9 +16,11 @@ jobs:
         - sudo add-apt-repository ppa:ondrej/php -y
         - sudo apt-get update
         - sudo apt -y install php7.4
+        - phpenv global 7.4 2>/dev/null
         - cd app/reports
         - pear install PHP_CodeSniffer
-      script: phpcs -v --extensions=php --standard=PSR2 src/Framework/Controller/ClassPhpCS.php
+        - pear channel-update pear.php.net
+      script: which phpcs | xargs -v --extensions=php --standard=PSR2 src/Framework/Controller/ClassPhpCS.php
     -
       name: PHPUnit
       before_script:
@@ -28,6 +30,7 @@ jobs:
         - sudo add-apt-repository ppa:ondrej/php -y
         - sudo apt-get update
         - sudo apt -y install php7.4
+        - phpenv global 7.4 2>/dev/null
         - cd app/reports && composer install
         - wget -O phpunit https://phar.phpunit.de/phpunit-9.phar
         - chmod +x phpunit
