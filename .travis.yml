@@ -1,4 +1,5 @@
 # Travis installs a "Xenial" dist as default with several packages configured as composer etc.
+dist: trusty
 language: php
 rvm:
   - 7.4
