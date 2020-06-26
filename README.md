@@ -10,7 +10,11 @@ Travis configuration
         
         https://travis-ci.org Es importante puesto que es de uso libreç
         
-       
+        Las variables de entorno usadas tienen otro tratamiento extra en los valores JSON por parte de Travis.
+        Es decir: 
+            - La variable ENV_FILE_PROD es un json escapado para que fab sea capaz de reconocerlo y decodificarlo de String To JSON
+            - Además a dicho ENV_FILE_PROD hay que escapar ciertos caracteres especiales para que Travis sea capaz de importar.
+                https://docs.travis-ci.com/user/encryption-keys
     
     -- SSH Configuration
         Documentación seguida: https://www.danielwerner.dev/set-up-ci-cd-for-your-laravel-app-with-github-travis-and-deployer/
@@ -33,7 +37,10 @@ Travis configuration
             Este comando añade info openssl al fichero .travis.yml
             Travis modifica .git/config para añadir un slug al proyecto que despliega
             Travis añade la ssh_key a https://travis-ci.org/github/xxxxx/reports-travisci/settings
-            
+                 encrypted_db2095f63ba3_iv
+                 encrypted_db2095f63ba3_key 
+            Éstas son usada en .travis.yml
+             
         5.- rm deploy_rsa
         6.- cat deploy_rsa.pub to the .ssh/authorized_keys file
         7.- rm deploy_rsa.pub
