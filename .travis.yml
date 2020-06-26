@@ -32,7 +32,7 @@ jobs:
           -in deploy_rsa.enc -out deploy_rsa -d
         - eval "$(ssh-agent -s)"
         - mkdir -p ~/.ssh
-        - cat /tmp/deploy_rsa > /home/travis/.ssh/id_rsa
+        - cat deploy_rsa > /home/travis/.ssh/id_rsa
         - chmod 600 /home/travis/.ssh/id_rsa
         # - chmod 600 /tmp/deploy_rsa
         # - ssh-add /tmp/deploy_rsa
