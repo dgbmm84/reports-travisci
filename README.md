@@ -5,6 +5,19 @@ https://docs.travis-ci.com/user/tutorial/#to-get-started-with-travis-ci-using-gi
 
 Travis configuration
     
+    -- SSH Configuration
+   
+        1 - Install the Travis cli
+            sudo apt install ruby ruby-dev
+            sudo gem install travis
+        2.- Gererar clave id_rsa para Travis bajo el root del proyecto
+            ssh-keygen -t rsa -b 4096 -C 'build@travis-ci.org' -f ./deploy_rsa    
+        3.- Authenticate with your Github credentials
+            travis login --org
+        4.- Indicar a travis la clave privada generada para que lo asocie al fichero .travis.yml
+            travis encrypt-file deploy_rsa --add
+
+    
     - En la raíz del proyecto existirá un fichero .travis.yml
     - Travis funciona con repositorios ṕublicos compartidos. Por ello hay un repo en GitHub con este proyecto.
         - Si se le asocia directamente un fichero .travis.yml en vez de .github/workflows desplegará travis

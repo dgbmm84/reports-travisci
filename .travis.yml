@@ -25,29 +25,17 @@ jobs:
     #    - chmod +x phpunit
     #    - ./phpunit --version
     #  script: ./phpunit --bootstrap vendor/autoload.php tests
-
     - stage: deploy PROD
-      env:
-        SSH_AUTH_SOCK=/tmp/ssh_agent.sock
+      env: SSH_AUTH_SOCK=/tmp/ssh_agent.sock
       before_script:
-        - mkdir -p ~/.ssh
-        #- ssh-keyscan github.com >> ~/.ssh/known_hosts
-        #- ssh-agent -a $SSH_AUTH_SOCK > /dev/null
-        #- ssh-add - <<< $SSH_PRIVATE_KEY
-        #- (umask 077; echo $SSH_PRIVATE_KEY > ~/.ssh/id_rsa)
-
-        #- echo "$SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/id_rsa
-        - echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
-        - chmod 700 ~/.ssh/id_rsa
-        - eval "$(ssh-agent -s)"
-        - ssh-add -v ~/.ssh/id_rsa
-        - ssh-keyscan -H 'gitlab.com' >> ~/.ssh/known_hosts
-
-        - ls -lrta ~/.ssh/
-        - sudo apt-get update
-        - sudo apt-get install -y python3-pip && pip3 --version
-        - pip3 install Fabric3==1.13.1.post1 && fab --version
-        - echo "------Deploying MASTER------"
+      - mkdir -p ~/.ssh
+      - ls -lrta ~/.ssh/
+      - sudo apt-get update
+      - sudo apt-get install -y python3-pip && pip3 --version
+      - pip3 install Fabric3==1.13.1.post1 && fab --version
+      - echo "------Deploying MASTER------"
       script: fab -i /home/travis/.ssh/id_rsa production deploy:env_file="$ENV_FILE_PROD",mysql_env_file="$ENV_MYSQL_FILE"
       if: branch = master
-
+before_install:
+- openssl aes-256-cbc -K $encrypted_db2095f63ba3_key -iv $encrypted_db2095f63ba3_iv
+  -in deploy_rsa.enc -out deploy_rsa -d
