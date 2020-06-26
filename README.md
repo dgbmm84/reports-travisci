@@ -5,16 +5,26 @@ https://docs.travis-ci.com/user/tutorial/#to-get-started-with-travis-ci-using-gi
 
 Travis configuration
     
+    -- PROYECTO
+        Tanto la ssh_keys (más adelante) como las variables se configuran dentro del repositorio https://travis-ci.org
+        
+        https://travis-ci.org Es importante puesto que es de uso libreç
+        
+       
+    
     -- SSH Configuration
-   
+        Documentación seguida: https://www.danielwerner.dev/set-up-ci-cd-for-your-laravel-app-with-github-travis-and-deployer/
         1 - Install the Travis cli
             sudo apt install ruby ruby-dev
             sudo gem install travis
+            
         2.- Gererar clave id_rsa para Travis bajo el root del proyecto
             ssh-keygen -t rsa -b 4096 -C 'build@travis-ci.org' -f ./deploy_rsa    
+            
         3.- Authenticate with your Github credentials
             travis login --org 
             Nota-- importante org ya que la otra opcion es --pro y exige una cuenta de pago
+            
         4.- Indicar a travis la clave privada generada para que lo asocie al fichero .travis.yml
             travis encrypt-file deploy_rsa --add --org
             (The above command creates the encrypted key file: deploy_rsa.enc and adds the decrypt key as and environment variable to the .travis.yml.
@@ -22,8 +32,10 @@ Travis configuration
             Nota -- importante org puesto que sino genera y asocia la clave a travis.com (pro) en vez de .org (free) 
             Este comando añade info openssl al fichero .travis.yml
             Travis modifica .git/config para añadir un slug al proyecto que despliega
+            Travis añade la ssh_key a https://travis-ci.org/github/xxxxx/reports-travisci/settings
+            
         5.- rm deploy_rsa
-        6.- deploy_rsa.pub to the .ssh/authorized_keys file
+        6.- cat deploy_rsa.pub to the .ssh/authorized_keys file
         7.- rm deploy_rsa.pub
     
     - En la raíz del proyecto existirá un fichero .travis.yml
