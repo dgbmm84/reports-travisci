@@ -8,8 +8,8 @@ import json
 
 environments = {
     'production': {
-        'hosts': 'medion@2.tcp.ngrok.io:12281',
-        'home': '/home/medion/deploys/docker-pipeline-travis-symfony-reports/production',
+        'hosts': 'xxxx',
+        'home': 'yyyy',
         'docker_build_commands': [
             'docker-compose -f docker-compose-prod.yaml build --no-cache',
             'docker-compose -f docker-compose-prod.yaml down',
@@ -32,8 +32,8 @@ environments = {
         }
     },
     'develop': {
-        'hosts': 'medion@2.tcp.ngrok.io:12281',
-        'home': '/home/medion/deploys/docker-pipeline-travis-symfony-reports/develop',
+        'hosts': 'xxxx',
+        'home': 'yyyy',
         'docker_build_commands': [
             'docker-compose -f docker-compose-dev.yaml build --no-cache',
             'docker-compose -f docker-compose-dev.yaml down',
