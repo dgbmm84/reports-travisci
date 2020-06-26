@@ -16,6 +16,12 @@ Travis configuration
             travis login --org
         4.- Indicar a travis la clave privada generada para que lo asocie al fichero .travis.yml
             travis encrypt-file deploy_rsa --add
+            (The above command creates the encrypted key file: deploy_rsa.enc and adds the decrypt key as and environment variable to the .travis.yml.
+             Commit the deploy_rsa.enc to the repository, and delete the unencrypted private key:)
+            Este comando añade info openssl al fichero .travis.yml
+        5.- rm deploy_rsa
+        6.- deploy_rsa.pub to the .ssh/authorized_keys file
+        7.- rm deploy_rsa.pub
 
     
     - En la raíz del proyecto existirá un fichero .travis.yml
