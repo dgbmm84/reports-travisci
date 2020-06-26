@@ -23,5 +23,5 @@
 /mysql/.env
 deploy_rsa
 deploy_rsa.pub
-REAME_ENV.md
+README_ENV.md
 ###> envs ###
