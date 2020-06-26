@@ -13,22 +13,27 @@ Travis configuration
         2.- Gererar clave id_rsa para Travis bajo el root del proyecto
             ssh-keygen -t rsa -b 4096 -C 'build@travis-ci.org' -f ./deploy_rsa    
         3.- Authenticate with your Github credentials
-            travis login --org
+            travis login --org 
+            Nota-- importante org ya que la otra opcion es --pro y exige una cuenta de pago
         4.- Indicar a travis la clave privada generada para que lo asocie al fichero .travis.yml
-            travis encrypt-file deploy_rsa --add
+            travis encrypt-file deploy_rsa --add --org
             (The above command creates the encrypted key file: deploy_rsa.enc and adds the decrypt key as and environment variable to the .travis.yml.
              Commit the deploy_rsa.enc to the repository, and delete the unencrypted private key:)
+            Nota -- importante org puesto que sino genera y asocia la clave a travis.com (pro) en vez de .org (free) 
             Este comando añade info openssl al fichero .travis.yml
+            Travis modifica .git/config para añadir un slug al proyecto que despliega
         5.- rm deploy_rsa
         6.- deploy_rsa.pub to the .ssh/authorized_keys file
         7.- rm deploy_rsa.pub
-
     
     - En la raíz del proyecto existirá un fichero .travis.yml
     - Travis funciona con repositorios ṕublicos compartidos. Por ello hay un repo en GitHub con este proyecto.
         - Si se le asocia directamente un fichero .travis.yml en vez de .github/workflows desplegará travis
     - Configuración del repositorio travis:
         -- env vars dentro de /reports-travisci/settings 
+    - Cada PUSH se verá el PIPELINE visualizado en los dos repos:
+        - https://travis-ci.org/github/xxxxx/reports-travisci 
+          https://travis-ci.com/github/xxxxx/reports-travisci/jobs/
 
 Host de despliegue 
 
