@@ -22,4 +22,5 @@
 /app/reports/.env.prod
 /mysql/.env
 deploy_rsa
+deploy_rsa.pub
 ###> envs ###
