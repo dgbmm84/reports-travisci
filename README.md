@@ -6,6 +6,8 @@ https://docs.travis-ci.com/user/tutorial/#to-get-started-with-travis-ci-using-gi
 Travis configuration
     
     -- PROYECTO
+        Proyecto público configurado en GitHub dgbmm84/reports-travisci del que hace uso Travis
+ 
         Tanto la ssh_keys (más adelante) como las variables se configuran dentro del repositorio https://travis-ci.org
         
         https://travis-ci.org Es importante puesto que es de uso libreç
